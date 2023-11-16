@@ -8,10 +8,12 @@ public class Move : MonoBehaviour
 
     public float xSpeed = 10f;
     public float zSpeed = 10f;
-    public float rotationSpeed = 1.0f;
     public float runSpeed = 5f;
     public float jumpPower = 5f;
     public float damagePower = 5f;
+    public float rotationSpeed;
+    public ParticleSystem playerParticle;
+    bool ParticlePlay = false;
     bool isJumping = false;
 
 
@@ -38,8 +40,23 @@ public class Move : MonoBehaviour
         if (Input.GetKey(KeyCode.W)){transform.Translate(0,0,zSpeed * Time.deltaTime);}
         if (Input.GetKey(KeyCode.S)){transform.Translate(0,0,-zSpeed * Time.deltaTime);}
 
+        if(Input.GetKeyDown(KeyCode.T)){
+            if(!ParticlePlay){
+                ParticlePlay = true;
+                playerParticle.Play();
+            }
+            else{
+                ParticlePlay = false;
+                playerParticle.Stop();
+            }
+        } 
+        
+
         if (Input.GetKeyDown(KeyCode.LeftShift)){xSpeed *= runSpeed;zSpeed *= runSpeed;} // 달리기 구현 
         if (Input.GetKeyUp(KeyCode.LeftShift)){xSpeed /= runSpeed;zSpeed /= runSpeed;}
+        
+        float mouseX = Input.GetAxis("Mouse X");
+        transform.Rotate(0,mouseX * rotationSpeed,0);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -51,8 +68,6 @@ public class Move : MonoBehaviour
             }
         }
     
-        float mouseX = Input.GetAxis("Mouse X");
-        transform.Rotate(0,mouseX * rotationSpeed,0);
     }
 
     void OnCollisionEnter(Collision other)

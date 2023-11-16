@@ -14,7 +14,6 @@ public class WaveSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         InvokeRepeating("Spawn",startTime,spawnRate); // start타임 후에 spawnRate만큼 실행 
         Invoke("CancelInvoke",endTime); // endtime후에 invoke 취소 
     }

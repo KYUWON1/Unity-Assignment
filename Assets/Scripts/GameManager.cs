@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public int clearScore =10;
+    
     void Update()
     {
         if (ScoreManager.instance.amount >=clearScore)
